@@ -73,3 +73,14 @@ void displayMovies(const vector<Movie> &movies) {
     }
     cout << "---------------------------------------------------------------\n";
 }
+
+
+
+int searchMovieByTitle(const vector<Movie> &movies, const string &title) {
+    for (size_t i = 0; i < movies.size(); i++) {
+        if (movies[i].title == title) {
+            return i;
+        }
+    }
+    return -1;
+}
