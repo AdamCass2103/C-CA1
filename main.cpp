@@ -55,3 +55,21 @@ void loadCSV(vector<Movie> &movies, const string &filename) {
 
     file.close();
 }
+
+
+
+
+void displayMovies(const vector<Movie> &movies) {
+    cout << "---------------------------------------------------------------\n";
+    cout << "| ID  | Title                | Genre       | Year | Revenue ($M) |\n";
+    cout << "---------------------------------------------------------------\n";
+
+    for (const auto &movie : movies) {
+        cout << "| " << movie.id << " | "
+             << movie.title << " | "
+             << movie.genre << " | "
+             << movie.year << " | "
+             << fixed << setprecision(2) << movie.revenue << " |\n";
+    }
+    cout << "---------------------------------------------------------------\n";
+}
