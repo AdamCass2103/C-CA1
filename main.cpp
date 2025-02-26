@@ -93,3 +93,10 @@ map<string, int> countMoviesByGenre(const vector<Movie> &movies) {
     }
     return genreCount;
 }
+
+
+void sortByRevenue(vector<Movie> &movies) {
+    sort(movies.begin(), movies.end(), [](const Movie &a, const Movie &b) {
+        return a.revenue > b.revenue;
+    });
+}
