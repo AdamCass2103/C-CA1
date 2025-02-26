@@ -84,3 +84,12 @@ int searchMovieByTitle(const vector<Movie> &movies, const string &title) {
     }
     return -1;
 }
+
+
+map<string, int> countMoviesByGenre(const vector<Movie> &movies) {
+    map<string, int> genreCount;
+    for (const auto &movie : movies) {
+        genreCount[movie.genre]++;
+    }
+    return genreCount;
+}
