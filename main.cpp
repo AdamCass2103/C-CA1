@@ -100,3 +100,51 @@ void sortByRevenue(vector<Movie> &movies) {
         return a.revenue > b.revenue;
     });
 }
+
+
+void menu(vector<Movie> &movies) {
+    int choice;
+    string title;
+
+    do {
+        cout << "\nMENU:\n";
+        cout << "1. Display all movies\n";
+        cout << "2. Search for a movie by title\n";
+        cout << "3. Count movies by genre\n";
+        cout << "4. Sort movies by revenue\n";
+        cout << "5. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            displayMovies(movies);
+        }
+        else if (choice == 2) {
+            cout << "Enter movie title: ";
+            cin.ignore();
+            getline(cin, title);
+            int index = searchMovieByTitle(movies, title);
+            if (index != -1) {
+                cout << "Found: " << movies[index].title << " (" << movies[index].year << ")\n";
+            } else {
+                cout << "Movie not found!\n";
+            }
+        }
+        else if (choice == 3) {
+            map<string, int> genreCount = countMoviesByGenre(movies);
+            for (const auto &pair : genreCount) {
+                cout << pair.first << ": " << pair.second << " movies\n";
+            }
+        }
+        else if (choice == 4) {
+            sortByRevenue(movies);
+            displayMovies(movies);
+        }
+        else if (choice == 5) {
+            cout << "Exiting...\n";
+        }
+        else {
+            cout << "Invalid choice, try again!\n";
+        }
+    } while (choice != 5);
+}
