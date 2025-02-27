@@ -4,6 +4,9 @@
 #include <sstream>
 #include <map>
 #include <algorithm>
+#include <iomanip>
+#include <string>
+
 //A
 using namespace std;
 
@@ -26,6 +29,7 @@ void loadCSV(vector<Movie> &movies, const string &filename) {
 
     string line;
     getline(file, line);  // Skip header row
+
     while (getline(file, line)) {
         stringstream ss(line);
         Movie movie;
@@ -33,6 +37,7 @@ void loadCSV(vector<Movie> &movies, const string &filename) {
 
         // Read ID
         getline(ss, field, ',');
+        if (field.empty()) continue;  // Skip invalid rows
         movie.id = stoi(field);
 
         // Read Title
@@ -43,26 +48,29 @@ void loadCSV(vector<Movie> &movies, const string &filename) {
 
         // Read Year
         getline(ss, field, ',');
+        if (field.empty()) continue;  // Ensure year is valid
         movie.year = stoi(field);
 
         // Read Revenue
         getline(ss, field, ',');
-        movie.revenue = stof(field);
+        if (field.empty()) continue;  // Ensure revenue is valid
+        movie.revenue = stoi(field);
 
         // Add to vector
         movies.push_back(movie);
     }
 
     file.close();
+
 }
 
 
 
 
 void displayMovies(const vector<Movie> &movies) {
-    cout << "---------------------------------------------------------------\n";
+    cout << "-----------------------------------------------------------\n";
     cout << "| ID  | Title                | Genre       | Year | Revenue ($M) |\n";
-    cout << "---------------------------------------------------------------\n";
+    cout << "-----------------------------------------------------------\n";
 
     for (const auto &movie : movies) {
         cout << "| " << movie.id << " | "
@@ -141,10 +149,24 @@ void menu(vector<Movie> &movies) {
             displayMovies(movies);
         }
         else if (choice == 5) {
-            cout << "Exiting...\n";
+            cout << "Exiting\n";
         }
         else {
-            cout << "Invalid choice, try again!\n";
+            cout << "Invalid choice try again\n";
         }
     } while (choice != 5);
+}
+
+
+
+int main() {
+    vector<Movie> movies;
+
+    // Load CSV Data
+    loadCSV(movies, "movies.csv");
+
+    // Show Menu
+    menu(movies);
+
+    return 0;
 }
