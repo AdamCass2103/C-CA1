@@ -37,32 +37,61 @@ void loadCSV(vector<Movie> &movies, const string &filename) {
 
         // Read ID
         getline(ss, field, ',');
-        if (field.empty()) continue;  // Skip invalid rows
-        movie.id = stoi(field);
+        cout << "ID Field: '" << field << "'" << endl;  // Debug print
+        if (field.empty()) {
+            cerr << "Error: Missing ID in CSV file" << endl;
+            continue;
+        }
+        try {
+            movie.id = stoi(field);
+        } catch (const exception &e) {
+            cerr << "Error converting ID: " << field << " -> " << e.what() << endl;
+            continue;
+        }
 
         // Read Title
         getline(ss, movie.title, ',');
+        cout << "Title: '" << movie.title << "'" << endl;
 
         // Read Genre
         getline(ss, movie.genre, ',');
+        cout << "Genre: '" << movie.genre << "'" << endl;
 
         // Read Year
         getline(ss, field, ',');
-        if (field.empty()) continue;  // Ensure year is valid
-        movie.year = stoi(field);
+        cout << "Year Field: '" << field << "'" << endl;
+        if (field.empty()) {
+            cerr << "Error: Missing Year in CSV file" << endl;
+            continue;
+        }
+        try {
+            movie.year = stoi(field);
+        } catch (const exception &e) {
+            cerr << "Error converting Year: " << field << " -> " << e.what() << endl;
+            continue;
+        }
 
         // Read Revenue
         getline(ss, field, ',');
-        if (field.empty()) continue;  // Ensure revenue is valid
-        movie.revenue = stoi(field);
+        cout << "Revenue Field: '" << field << "'" << endl;
+        if (field.empty()) {
+            cerr << "Error: Missing Revenue in CSV file" << endl;
+            continue;
+        }
+        try {
+            movie.revenue = stoi(field);
+        } catch (const exception &e) {
+            cerr << "Error converting Revenue: " << field << " -> " << e.what() << endl;
+            continue;
+        }
 
         // Add to vector
         movies.push_back(movie);
     }
 
     file.close();
-
 }
+
 
 
 
